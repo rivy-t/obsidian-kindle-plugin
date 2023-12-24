@@ -4,7 +4,7 @@
 {% if authorUrl %}
 * Author: [{{author}}]({{authorUrl}})
 {% elif author %}
-* Author: [[{{author}}]]
+* Author: {% for author in authors %}[[{{author.fullName}}]]{% if not loop.last %}, {% endif %}{% endfor %}
 {% endif %}
 {% if asin %}* ASIN: {{asin}}{% endif %}
 {% if isbn %}* ISBN: {{isbn}}{% endif %}
