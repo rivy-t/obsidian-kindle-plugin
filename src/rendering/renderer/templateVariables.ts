@@ -1,12 +1,14 @@
 import moment from 'moment';
 
 import type { Book, BookHighlight, Highlight } from '~/models';
+import type { Author } from '~/utils';
 import { parseAuthors, shortenTitle } from '~/utils';
 
 import { generateAppLink } from './utils';
 
 export type AuthorsTemplateVariables = {
   author: string;
+  authors: Author[];
   authorsLastNames: string;
   firstAuthorFirstName?: string;
   firstAuthorLastName: string;
@@ -62,6 +64,7 @@ export const authorsTemplateVariables = (author: string): AuthorsTemplateVariabl
 
   return {
     author: author,
+    authors,
     authorsLastNames,
     firstAuthorFirstName: authors[0].firstName,
     firstAuthorLastName: authors[0].lastName,
