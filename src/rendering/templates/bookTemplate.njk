@@ -1,4 +1,7 @@
 # {{title}}
+
+{% if imageUrl %}![{{title}} ~ Cover Image]({{imageUrl|replace('._SY160.', '._SY1600.')}}){% endif %}
+
 ## Metadata
 {% trim %}
 {% if authorUrl %}
