@@ -1,11 +1,12 @@
-type Author = {
-  firstName: string;
-  lastName: string;
+export type Author = {
+  firstName?: string;
+  lastName?: string;
+  fullName?: string;
 };
 
 export const parseAuthors = (author: string | undefined): Author[] => {
   if (author == null) {
-    return [{ firstName: undefined, lastName: undefined }];
+    return [{ firstName: undefined, lastName: undefined, fullName: undefined }];
   }
 
   if (new RegExp(/\b(and)+/, 'i').exec(author)) {
@@ -31,16 +32,24 @@ const parseSingleAuthor = (author: string): Author => {
 
   if (hasComma) {
     const names = splitAndTrim(',', author);
+    const firstName = names.length == 1 ? undefined : splitAndTrim(' ', names[1]).join(' ');
+    const lastName = names[0];
+    const fullName = [firstName, lastName].filter((s) => s != null).join(' ');
     return {
-      firstName: names.length == 1 ? undefined : splitAndTrim(' ', names[names.length - 1])[0],
-      lastName: names[0],
+      firstName,
+      lastName,
+      fullName,
     };
   }
 
   const names = splitAndTrim(' ', author);
+  const firstName = names.length == 1 ? undefined : names.slice(0, -1).join(' ');
+  const lastName = names[names.length - 1];
+  const fullName = [firstName, lastName].filter((s) => s != null).join(' ');
   return {
-    firstName: names.length == 1 ? undefined : names[0],
-    lastName: names[names.length - 1],
+    firstName,
+    lastName,
+    fullName,
   };
 };
 
