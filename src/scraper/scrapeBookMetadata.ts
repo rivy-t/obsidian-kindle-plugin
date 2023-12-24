@@ -37,7 +37,7 @@ const parseDetailsList = ($: Root): Omit<BookMetadata, 'authorUrl'> => {
   };
 };
 
-const parseIsbn = ($: Root): string | null => {
+const parseIsbn = ($: Root): string | undefined => {
   // Attempt 1 - Try and fetch isbn from product information popover
   const popoverData = $(
     '#rich_product_information ol.a-carousel span[data-action=a-popover]'
@@ -57,9 +57,9 @@ const parseIsbn = ($: Root): string | null => {
   return isbnFeature;
 };
 
-const parseAuthorUrl = ($: Root): string | null => {
+const parseAuthorUrl = ($: Root): string | undefined => {
   const href = $('.contributorNameID').attr('href');
-  return `https://www.amazon.com${href}`;
+  return (href != null) ? `https://www.amazon.com${href}` : undefined;
 };
 
 export const parseBookMetadata = ($: Root): BookMetadata => {
